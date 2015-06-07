@@ -1,0 +1,69 @@
+<html>
+<head>
+	<title>
+		Binary Tree Level Order Sort in JavaScript by http://twitter.com/georgemck :)
+	</title>
+</head>
+<body>
+	<script>
+
+	function Queue() {
+		this.queue = new Array();
+		this.pop = function() {
+			return this.queue.pop();
+		}
+		this.push = function(item) {
+			this.queue.push(item);
+		}
+	}
+
+	function createLevelOrder(root) {
+		if (!root) {
+			return;
+		} else {
+
+			var StackQueue = new Queue();
+			var availableNodes = 1;
+			var futureNodes = 0;
+			var BinaryTree = "";
+
+			StackQueue.push(root);
+
+			while (availableNodes > 0) {
+
+				while (availableNodes > 0) {
+					var currentNode = StackQueue.pop();
+					availableNodes--;
+					if (currentNode != 0) {
+						BinaryTree += currentNode;
+					} else {
+						availableNodes = 0;
+					}
+
+					if (currentNode > 1) {
+						StackQueue.push(currentNode - 2);
+						StackQueue.push(currentNode - 1);
+						futureNodes += 2;
+
+						if ((availableNodes == 0) && (currentNode != 0)) {
+							BinaryTree += "<br />";
+							availableNodes = futureNodes;
+							futureNodes = 0;
+						} else {
+							BinaryTree += ", ";
+						}
+					}
+				}
+			}
+
+			document.write(BinaryTree);
+
+		}
+	}
+
+	createLevelOrder(65);
+
+	</script>
+</body>
+
+</html>
