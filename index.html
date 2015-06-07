@@ -31,28 +31,25 @@
 			StackQueue.push(root);
 
 			while (availableNodes > 0) {
+				var currentNode = StackQueue.pop();
+				availableNodes--;
+				if (currentNode != 0) {
+					BinaryTree += currentNode;
+				} else {
+					availableNodes = 0;
+				}
 
-				while (availableNodes > 0) {
-					var currentNode = StackQueue.pop();
-					availableNodes--;
-					if (currentNode != 0) {
-						BinaryTree += currentNode;
+				if (currentNode > 1) {
+					StackQueue.push(currentNode - 2);
+					StackQueue.push(currentNode - 1);
+					futureNodes += 2;
+
+					if ((availableNodes == 0) && (currentNode != 0)) {
+						BinaryTree += "<br />";
+						availableNodes = futureNodes;
+						futureNodes = 0;
 					} else {
-						availableNodes = 0;
-					}
-
-					if (currentNode > 1) {
-						StackQueue.push(currentNode - 2);
-						StackQueue.push(currentNode - 1);
-						futureNodes += 2;
-
-						if ((availableNodes == 0) && (currentNode != 0)) {
-							BinaryTree += "<br />";
-							availableNodes = futureNodes;
-							futureNodes = 0;
-						} else {
-							BinaryTree += ", ";
-						}
+						BinaryTree += ", ";
 					}
 				}
 			}
